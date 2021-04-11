@@ -45,6 +45,11 @@
         source: http://chocoserver:8443/repository/ChocolateyInternal/
 
    - name: Install Chocolatey license
+     ansible.windows.win_file:
+        path: C:\ProgramData\chocolatey\license
+        state: directory
+
+   - name: Install Chocolatey license
      ansible.windows.win_copy:
         src: C:\Users\Adilio\Documents\choco-temp\chocolatey.license.xml
         dest: C:\ProgramData\chocolatey\license\chocolatey.license.xml
