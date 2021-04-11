@@ -42,7 +42,7 @@
         name: ChocolateyInternal
         state: present
         priority: 1
-        source: http://chocoserver:8443/repository/ChocolateyInternal/
+        source: https://chocoserver:8443/repository/ChocolateyInternal/
 
    - name: Install Chocolatey license
      ansible.windows.win_file:
