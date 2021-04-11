@@ -60,7 +60,7 @@
      chocolatey.chocolatey.win_chocolatey:
         name: chocolatey.extension
         state: present
-        package_params: '/NoContextMenu'
+        package_params: /NoContextMenu
 
    - name: Install Chocolatey packages
      chocolatey.chocolatey.win_chocolatey:
