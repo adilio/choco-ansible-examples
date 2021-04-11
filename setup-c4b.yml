@@ -48,6 +48,8 @@
      ansible.windows.win_copy:
         src: C:\Users\Adilio\Documents\choco-temp\chocolatey.license.xml
         dest: C:\ProgramData\chocolatey\license\chocolatey.license.xml
+        remote_src: yes
+        force: yes
 
    - name: Install Chocolatey licensed extension
      chocolatey.chocolatey.win_chocolatey:
