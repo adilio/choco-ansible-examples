@@ -43,7 +43,7 @@
         priority: 1
         source: https://chocoserver:8443/repository/ChocolateyInternal/
 
-   - name: Install Chocolatey license
+   - name: Create Chocolatey license directory
      ansible.windows.win_file:
         path: C:\ProgramData\chocolatey\license
         state: directory
