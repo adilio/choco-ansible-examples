@@ -59,14 +59,20 @@
    - name: Install Chocolatey licensed extension
      chocolatey.chocolatey.win_chocolatey:
         name: chocolatey.extension
-        state: present
+        state: latest
         source: ChocolateyInternal
         package_params: /NoContextMenu
+
+   - name: Install Chocolatey agent
+     chocolatey.chocolatey.win_chocolatey:
+        name: chocolatey-agent
+        state: latest
+        source: ChocolateyInternal
 
    - name: Install Chocolatey packages
      chocolatey.chocolatey.win_chocolatey:
         name: "{{ item.name }}"
-        state: present
+        state: latest
      loop: "{{ choco_packages }}"
 
    - name: Enable features for self-service
