@@ -50,25 +50,25 @@
         dest: C:\ProgramData\chocolatey\license\chocolatey.license.xml
 
    - name: Install Chocolatey licensed extension
-      chocolatey.chocolatey.win_chocolatey:
+     chocolatey.chocolatey.win_chocolatey:
         name: chocolatey.extension
         state: present
         package_params: '/NoContextMenu'
 
-    - name: Install Chocolatey packages
-      chocolatey.chocolatey.win_chocolatey:
+   - name: Install Chocolatey packages
+     chocolatey.chocolatey.win_chocolatey:
         name: "{{ item.name }}"
         state: present
-      loop: "{{ choco_packages }}"
+     loop: "{{ choco_packages }}"
 
-    - name: Enable features for self-service
-      chocolatey.chocolatey.win_chocolatey_feature:
+   - name: Enable features for self-service
+     chocolatey.chocolatey.win_chocolatey_feature:
         name: "{{ item.name }}"
         state: enabled
-      loop: "{{ choco_features }}"
+     loop: "{{ choco_features }}"
 
-    - name: Disable feature for self-service
-      chocolatey.chocolatey.win_chocolatey_feature:
+   - name: Disable feature for self-service
+     chocolatey.chocolatey.win_chocolatey_feature:
         name: showNonElevatedWarnings
         state: disabled
 
@@ -79,7 +79,7 @@
        value: https://chocoserver:24020/ChocolateyManagementService
 
    - name: Opt-in to Central Management & Deployments
-      chocolatey.chocolatey.win_chocolatey_feature:
+     chocolatey.chocolatey.win_chocolatey_feature:
         name: "{{ item.name }}"
         state: enabled
       loop: "{{ choco_CCM_features }}"
