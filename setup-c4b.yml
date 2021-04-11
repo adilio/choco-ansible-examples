@@ -60,6 +60,7 @@
      chocolatey.chocolatey.win_chocolatey:
         name: chocolatey.extension
         state: present
+        source: ChocolateyInternal
         package_params: /NoContextMenu
 
    - name: Install Chocolatey packages
