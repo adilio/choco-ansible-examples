@@ -82,4 +82,4 @@
      chocolatey.chocolatey.win_chocolatey_feature:
         name: "{{ item.name }}"
         state: enabled
-      loop: "{{ choco_CCM_features }}"
+     loop: "{{ choco_CCM_features }}"
