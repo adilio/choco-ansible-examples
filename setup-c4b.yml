@@ -11,7 +11,6 @@
     choco_packages:
       - name: 7zip
       - name: notepadplusplus
-      - name: chocolatey-agent
       - name: chocolateygui
 
     choco_features:
