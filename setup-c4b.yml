@@ -10,7 +10,7 @@
   vars: 
     choco_packages:
       - name: 7zip
-      - name: nodejs
+      - name: notepadplusplus
       - name: chocolatey-agent
       - name: chocolateygui
 
