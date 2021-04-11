@@ -49,7 +49,7 @@
         src: C:\Users\Adilio\Documents\choco-temp\chocolatey.license.xml
         dest: C:\ProgramData\chocolatey\license\chocolatey.license.xml
 
-    - name: Install Chocolatey licensed extension
+   - name: Install Chocolatey licensed extension
       chocolatey.chocolatey.win_chocolatey:
         name: chocolatey.extension
         state: present
