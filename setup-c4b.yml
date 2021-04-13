@@ -14,90 +14,90 @@
       - name: chocolateygui
 
     choco_features:
-       - name: useBackgroundService
-       - name: useBackgroundServiceWithNonAdministratorsOnly
-       - name: allowBackgroundServiceUninstallsFromUserInstallsOnly
-       - name: useChocolateyCentralManagement
-       - name: useChocolateyCentralManagementDeployments
+      - name: useBackgroundService
+      - name: useBackgroundServiceWithNonAdministratorsOnly
+      - name: allowBackgroundServiceUninstallsFromUserInstallsOnly
+      - name: useChocolateyCentralManagement
+      - name: useChocolateyCentralManagementDeployments
 
     choco_CCM_features:
-       - name: useChocolateyCentralManagement
-       - name: useChocolateyCentralManagementDeployments
+      - name: useChocolateyCentralManagement
+      - name: useChocolateyCentralManagementDeployments
   
   tasks: 
 
-   - name: Run multi-lined shell commands
-     ansible.windows.win_shell: |
-     $downloader = New-Object -TypeName System.Net.WebClient
-     Invoke-Expression ($downloader.DownloadString('http://chocoserver:80/Import-ChocoServerCertificate.ps1'))
+    - name: Import QDE certificate on endpoint
+      ansible.windows.win_shell: |
+      $downloader = New-Object -TypeName System.Net.WebClient
+      Invoke-Expression ($downloader.DownloadString('http://chocoserver:80/Import-ChocoServerCertificate.ps1'))
 
-   - name: Install Chocolatey
-     chocolatey.chocolatey.win_chocolatey:
-       name: chocolatey
-       source: https://chocoserver:8443/repository/choco-install/ChocolateyInstall.ps1
+    - name: Install Chocolatey
+      chocolatey.chocolatey.win_chocolatey:
+        name: chocolatey
+        source: https://chocoserver:8443/repository/choco-install/ChocolateyInstall.ps1
 
-   - name: Remove the default public source
-     chocolatey.chocolatey.win_chocolatey_source:
-       name: chocolatey
-       state: absent
+    - name: Remove the default public source
+      chocolatey.chocolatey.win_chocolatey_source:
+        name: chocolatey
+        state: absent
 
-   - name: Add new internal source
-     chocolatey.chocolatey.win_chocolatey_source:
+    - name: Add new internal source
+      chocolatey.chocolatey.win_chocolatey_source:
         name: ChocolateyInternal
         state: present
         priority: 1
         source: https://chocoserver:8443/repository/ChocolateyInternal/
 
-   - name: Create Chocolatey license directory
-     ansible.windows.win_file:
+    - name: Create Chocolatey license directory
+      ansible.windows.win_file:
         path: C:\ProgramData\chocolatey\license
         state: directory
 
-   - name: Install Chocolatey license
-     ansible.windows.win_copy:
+    - name: Install Chocolatey license
+      ansible.windows.win_copy:
         src: C:\Users\Adilio\Documents\choco-temp\chocolatey.license.xml
         dest: C:\ProgramData\chocolatey\license\chocolatey.license.xml
         remote_src: yes
         force: yes
 
-   - name: Install Chocolatey licensed extension
-     chocolatey.chocolatey.win_chocolatey:
+    - name: Install Chocolatey licensed extension
+      chocolatey.chocolatey.win_chocolatey:
         name: chocolatey.extension
         state: latest
         source: ChocolateyInternal
         package_params: /NoContextMenu
 
-   - name: Install Chocolatey agent
-     chocolatey.chocolatey.win_chocolatey:
+    - name: Install Chocolatey agent
+      chocolatey.chocolatey.win_chocolatey:
         name: chocolatey-agent
         state: latest
         source: ChocolateyInternal
 
-   - name: Install Chocolatey packages
-     chocolatey.chocolatey.win_chocolatey:
+    - name: Install Chocolatey packages
+      chocolatey.chocolatey.win_chocolatey:
         name: "{{ item.name }}"
         state: latest
-     loop: "{{ choco_packages }}"
+      loop: "{{ choco_packages }}"
 
-   - name: Enable features for self-service
-     chocolatey.chocolatey.win_chocolatey_feature:
+    - name: Enable features for self-service
+      chocolatey.chocolatey.win_chocolatey_feature:
         name: "{{ item.name }}"
         state: enabled
-     loop: "{{ choco_features }}"
+      loop: "{{ choco_features }}"
 
-   - name: Disable feature for self-service
-     chocolatey.chocolatey.win_chocolatey_feature:
+    - name: Disable feature for self-service
+      chocolatey.chocolatey.win_chocolatey_feature:
         name: showNonElevatedWarnings
         state: disabled
 
-   - name: Set Central Management Service URL
-     chocolatey.chocolatey.win_chocolatey_config:
-       name: CentralManagementServiceUrl
-       state: present
-       value: https://chocoserver:24020/ChocolateyManagementService
+    - name: Set Central Management Service URL
+      chocolatey.chocolatey.win_chocolatey_config:
+        name: CentralManagementServiceUrl
+        state: present
+        value: https://chocoserver:24020/ChocolateyManagementService
 
-   - name: Opt-in to Central Management & Deployments
-     chocolatey.chocolatey.win_chocolatey_feature:
+    - name: Opt-in to Central Management & Deployments
+      chocolatey.chocolatey.win_chocolatey_feature:
         name: "{{ item.name }}"
         state: enabled
-     loop: "{{ choco_CCM_features }}"
+      loop: "{{ choco_CCM_features }}"
