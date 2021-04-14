@@ -28,9 +28,9 @@
 
     - name: Import QDE certificate on endpoint
       ansible.windows.win_shell: |
-      $downloader = New-Object -TypeName System.Net.WebClient
-      Invoke-Expression ($downloader.DownloadString('http://chocoserver:80/Import-ChocoServerCertificate.ps1'))
-      New-Item -ItemType File -Path C:\Users\Adilio\Documents\choco-temp\certadded.txt
+        $downloader = New-Object -TypeName System.Net.WebClient
+        Invoke-Expression ($downloader.DownloadString('http://chocoserver:80/Import-ChocoServerCertificate.ps1'))
+        New-Item -ItemType File -Path "C:\Users\Adilio\Documents\choco-temp\certadded.txt"
       args:
         creates: C:\Users\Adilio\Documents\choco-temp\certadded.txt
 
