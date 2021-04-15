@@ -11,7 +11,7 @@
     choco_packages:
       - name: 7zip
       - name: notepadplusplus
-      - name: chocolateygui
+#      - name: chocolateygui
 
     choco_features:
       - name: useBackgroundService
